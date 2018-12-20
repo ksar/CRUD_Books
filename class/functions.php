@@ -18,7 +18,7 @@ class Functions {
             foreach ($data as $subcol => $subval) {
                 if ( !is_int($subcol) && 'id' != substr($subcol,0,2) ) {
                     if ( strlen($link_to) > 0 ) {
-                        $output .= '<td><a href="/?table=' . $link_to . '&id=' . $data[0] . '">' . $subval . '</a></td>';
+                        $output .= '<td><a href="?table=' . $link_to . '&id=' . $data[0] . '">' . $subval . '</a></td>';
                     }
                     else {
                         $output .= '<td>' . $subval . '</td>';
@@ -26,8 +26,8 @@ class Functions {
                 }
             }
             if ($source_table) {
-                $output .= '<td><a href="/?table=' . $source_table . '&action=update&id='   . $data[0] . '">EDIT  </a></td>'
-                         . '<td><a href="/?table=' . $source_table . '&action=delete&id=' . $data[0] . '" onclick="return confirm(\'Are you sure you want to delete this item?\');">DELETE</a></td>';
+                $output .= '<td><a href="?table=' . $source_table . '&action=update&id='   . $data[0] . '">EDIT  </a></td>'
+                         . '<td><a href="?table=' . $source_table . '&action=delete&id=' . $data[0] . '" onclick="return confirm(\'Are you sure you want to delete this item?\');">DELETE</a></td>';
             }
         }
         else {
@@ -47,8 +47,8 @@ class Functions {
                         if ( !is_int($subcol) && 'id' != substr($subcol,0,2) )
                             $output .= '<th class="upper">' . $subcol . '</th>';
                     }
-                    $output .= '<th><a href="/?table=' . $source_table . '&action=create">CREATE</a></th>';
-                    $output .= '<th><a href="/"><- BACK</a></th>';
+                    $output .= '<th><a href="?table=' . $source_table . '&action=create">CREATE</a></th>';
+                    $output .= '<th><a href="?"><- BACK</a></th>';
                     $output .= '</tr>';
                     $output .= '<tr>';
                     $output .= self::showRow($val, $link_to, $source_table);
@@ -63,10 +63,10 @@ class Functions {
         }
         else {
             if ( $author_id > 0 ) {
-                $output = 'No data, but you can <a href="/?table=' . $source_table . '&action=create&author_id=' . $author_id . '">CREATE</a> a new one.';
+                $output = 'No data, but you can <a href="?table=' . $source_table . '&action=create&author_id=' . $author_id . '">CREATE</a> a new one.';
             }
             else {
-                $output = 'No data, but you can <a href="/?table=' . $source_table . '&action=create">CREATE</a> a new one.';
+                $output = 'No data, but you can <a href="?table=' . $source_table . '&action=create">CREATE</a> a new one.';
             }
         }
 
