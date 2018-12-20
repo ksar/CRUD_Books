@@ -45,6 +45,6 @@ print <<< EOH
 <body>
 EOH;
 
-print('<hr><a href="/">MAIN PAGE</a><hr>');
+print('<hr><a href="?">MAIN PAGE</a><hr>');
 print ( $out );
 print('</body></html>');
