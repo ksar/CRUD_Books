@@ -113,7 +113,7 @@ class Functions {
                     if ( isset ( $_post['action'] ) && 'Create' == $_post['action'] ) {
                         $_post['author_id'] = $_post['author_id'] + 0;
                         foreach ($what_to_edit as $wte) {
-                            $what_to_update[$wte] = $_post[$wte];
+                            $what_to_update[$wte] = Functions::sanitizeData($_post[$wte]);
                         }
                         if ( $book->insert ( $what_to_update, $_post['author_id'] ) ) $out = "Created";
                         else $out = "Not created";
@@ -126,7 +126,7 @@ class Functions {
                     $what_to_edit = array ( 'name', 'surname' );
                     if ( isset ( $_post['action'] ) && 'Create' == $_post['action'] ) {
                         foreach ($what_to_edit as $wte) {
-                            $what_to_update[$wte] = $_post[$wte];
+                            $what_to_update[$wte] = Functions::sanitizeData($_post[$wte]);
                         }
                         if ( $author->insert ( $what_to_update ) ) $out = "Created";
                         else $out = "Not created";
@@ -141,7 +141,7 @@ class Functions {
                     $row = $book->get('b.id=' . $_get['id']);
                     $what_to_edit = array ( 'title' );
                     if ( isset($_post['action']) && 'Save' == $_post['action'] ) {
-                        if ($book->update(array ( $what_to_edit[0] => $_post[$what_to_edit[0]] ), $_get['id']) ) $out = "Saved";
+                        if ($book->update(array ( $what_to_edit[0] => Functions::sanitizeData($_post[$what_to_edit[0]]) ), $_get['id']) ) $out = "Saved";
                         else $out = "Not saved";
                     }
                     else {
@@ -153,7 +153,7 @@ class Functions {
                     $what_to_edit = array ( 'name', 'surname' );
                     if ( isset($_post['action']) && 'Save' == $_post['action'] ) {
                         foreach ($what_to_edit as $wte) {
-                            $what_to_update[$wte] = $_post[$wte];
+                            $what_to_update[$wte] = Functions::sanitizeData($_post[$wte]);
                         }
                         if ($author->update($what_to_update, $_get['id']) ) $out = "Saved";
                         else $out = "Not saved";
