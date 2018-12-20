@@ -1,0 +1,15 @@
+.table{
+    width:100%;
+    font-size:12px;
+    font-family: "Trebuchet MS", Arial, Helvetica;
+    text-align: center;
+}
+.upper {
+    text-transform: uppercase;
+}
+.table tr{
+    background: #b8d1f3;
+}
+.table tr:hover {
+    background-color: #def;
+}
