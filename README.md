@@ -1,5 +1,10 @@
 # CRUD_Books
 
+PHP 7.0
+PHPUnit 6
+
+DATABASE:
+
 CREATE TABLE `author` (
  `id` int(11) NOT NULL AUTO_INCREMENT,
  `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_polish_ci NOT NULL,
