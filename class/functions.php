@@ -7,10 +7,32 @@
  */
 
 class Functions {
+
+    static function myAutoloader($className) {
+
+        $suffixes = array ( '.php','.config.php','.model.php' );
+        $folders = array ( '/class/', '/config/', '/model/' );
+        $class = strtolower($className);
+
+        foreach ($suffixes AS $suffix) {
+            foreach ($folders AS $folder) {
+                $file = getcwd().$folder.$class.$suffix;
+                if (file_exists($file) === true) {
+                    include_once ($file);
+                    break(2);
+                }
+            }
+        }
+
+        return false;
+    }
+
+
     static function sanitizeData($input) {
 #        return filter_var($input,FILTER_SANITIZE_STRING);
         return preg_replace("/[^A-Za-z0-9=]/",'',$input);
     }
+
 
     static function showRow($data, $link_to = null, $source_table = null) {
         if ( is_array($data) && !empty($data) ) {
@@ -26,7 +48,7 @@ class Functions {
                 }
             }
             if ($source_table) {
-                $output .= '<td><a href="?table=' . $source_table . '&action=update&id='   . $data[0] . '">EDIT  </a></td>'
+                $output .= '<td><a href="?table=' . $source_table . '&action=update&id=' . $data[0] . '">EDIT</a></td>'
                          . '<td><a href="?table=' . $source_table . '&action=delete&id=' . $data[0] . '" onclick="return confirm(\'Are you sure you want to delete this item?\');">DELETE</a></td>';
             }
         }
@@ -36,6 +58,7 @@ class Functions {
 
         return $output;
     }
+
 
     static function showData($data, $link_to = null, $source_table = null, $author_id = null) {
         if ( is_array($data) && !empty($data) ) {
@@ -47,7 +70,12 @@ class Functions {
                         if ( !is_int($subcol) && 'id' != substr($subcol,0,2) )
                             $output .= '<th class="upper">' . $subcol . '</th>';
                     }
-                    $output .= '<th><a href="?table=' . $source_table . '&action=create">CREATE</a></th>';
+                    if ( $author_id > 0 ) {
+                        $output .= '<th><a href="?table=' . $source_table . '&action=create&author_id=' . $author_id . '">CREATE</a></th>';
+                    }
+                    else {
+                        $output .= '<th><a href="?table=' . $source_table . '&action=create">CREATE</a></th>';
+                    }
                     $output .= '<th><a href="?"><- BACK</a></th>';
                     $output .= '</tr>';
                     $output .= '<tr>';
@@ -73,6 +101,7 @@ class Functions {
         return $output;
     }
 
+
     static function editRow ($row = null, $table = null, $id = null, $what_to_edit) {
         $out = '<form action="" method="POST">';
         foreach ($what_to_edit as $field) {
@@ -82,6 +111,7 @@ class Functions {
 
         return $out;
     }
+
 
     static function createRow ($table = null, $what_to_edit, $author_id = null) {
         $out = '<form action="" method="POST">';

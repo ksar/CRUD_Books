@@ -23,6 +23,7 @@ class BookModel implements CRUD {
         $query = 'INSERT INTO ' . $this->table_name . ' (' . join(",",$keyData) . ') VALUES (' . join(",",$valueData) . ')';
         $prepared_query = $this->db_connection->prepare($query);
         $result = $prepared_query->execute();
+        if ($result) $result = $this->db_connection->lastInsertId();
 
         return $result;
     }

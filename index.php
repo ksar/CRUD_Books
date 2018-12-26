@@ -6,7 +6,7 @@
  * Time: 17:11
  */
 
-
+/*
 function myAutoloader($className) {
 
     $suffixes = array ( '.php','.config.php','.model.php' );
@@ -25,8 +25,9 @@ function myAutoloader($className) {
 
     return false;
 }
-
-spl_autoload_register('myAutoloader');
+*/
+require_once ('class/functions.php');
+spl_autoload_register('Functions::myAutoloader');
 
 $database = new Database();
 $db_connection = $database->getConnection();

@@ -23,6 +23,7 @@ class AuthorModel implements CRUD {
         $query = 'INSERT INTO ' . $this->table_name . ' (' . join(",",$keyData) . ') VALUES (' . join(",",$valueData) . ')';
         $prepared_query = $this->db_connection->prepare($query);
         $result = $prepared_query->execute();
+        if ($result) $result = $this->db_connection->lastInsertId();
 
         return $result;
     }
@@ -60,9 +61,9 @@ class AuthorModel implements CRUD {
     function delete ( $id = null ) {
         $id = $id + 0;
         if ( $id > 0 ) {
-            $query = 'DELETE FROM ' . $this->table_name . ' WHERE id=' . $id;
+            $query = 'DELETE FROM ' . $this->table_name . ' WHERE id=?';
             $prepared_query = $this->db_connection->prepare($query);
-            $result = $prepared_query->execute();
+            $result = $prepared_query->execute([$id]);
             return $result;
         }
         else {
